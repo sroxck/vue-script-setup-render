@@ -9,10 +9,9 @@ import {
   createStyleImportPlugin,
   ElementPlusResolve,
 } from 'vite-plugin-style-import'
-import Markdown from 'vite-plugin-md'
+
 export default defineConfig({
   plugins: [
-    
     AutoImport({
       imports: ['vue'],
       dts: "./auto-import.d.ts",
@@ -29,9 +28,7 @@ export default defineConfig({
     }),
     VueMacros({
       plugins: {
-        vue: Vue({
-          include: [/\.vue$/, /\.md$/], // <--
-        }),
+        vue: Vue(),
         vueJsx: VueJsx(), // 如有需要
       },
     }),
@@ -40,10 +37,7 @@ export default defineConfig({
       dirs: ['src/components'],
       // ui库解析器
       // resolvers: [ElementPlusResolver()],
-
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      extensions: ['vue', 'ts', 'js','md'],
+      extensions: ['vue', 'ts', 'js'],
       // 配置文件生成位置
       dts: 'src/components.d.ts',
       // ui库解析器，也可以自定义
@@ -51,10 +45,6 @@ export default defineConfig({
         ElementPlusResolver(),
       ]
     }),
-    // Vue({
-    //   include: [/\.vue$/, /\.md$/], // <--
-    // }),
-    Markdown(),
     createStyleImportPlugin({
       resolves:[
         ElementPlusResolve(),
