@@ -1,10 +1,7 @@
 <script setup lang="tsx">
-  defineRender(() => {
+   defineRender(() => {
     return (
-      <div>
-        <script-setup-render></script-setup-render>
-      </div>
+      <script-setup-render></script-setup-render>
     )
   })
   </script> 
-

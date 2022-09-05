@@ -21,6 +21,7 @@
     "unplugin-vue-components": "^0.22.4",
     "unplugin-vue-macros": "^0.11.1",
     "vite": "^3.0.7",
+    "vite-plugin-md": "^0.20.4",
     "vite-plugin-style-import": "^2.0.0",
     "vue-tsc": "^0.39.5"
   }
