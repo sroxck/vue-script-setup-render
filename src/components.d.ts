@@ -12,6 +12,13 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     Markdown: typeof import('./components/markdown.md')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    ScriptRender: typeof import('./components/script-render.vue')['default']
     ScriptSetupRender: typeof import('./components/script-setup-render.vue')['default']
+    Ss: typeof import('./components/ss.vue')['default']
+    SSS: typeof import('./components/s-s-s.vue')['default']
+    Test: typeof import('./components/test.vue')['default']
+    Undefined: typeof import('./components/index.vue')['default']
   }
 }

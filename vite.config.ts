@@ -1,20 +1,33 @@
 import { defineConfig } from 'vite'
-import VueMacros from 'unplugin-vue-macros/vite'
-import Vue from '@vitejs/plugin-vue'
-import VueJsx from '@vitejs/plugin-vue-jsx'
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import {
-  createStyleImportPlugin,
-  ElementPlusResolve,
-} from 'vite-plugin-style-import'
-import Markdown from 'vite-plugin-md'
+import VueMacros from 'unplugin-vue-macros/vite' // vue macros
+import Vue from '@vitejs/plugin-vue' 
+import VueJsx from '@vitejs/plugin-vue-jsx'  // jsx plugin
+import Components from 'unplugin-vue-components/vite' // auto import components
+import AutoImport from 'unplugin-auto-import/vite' // auto import vue hooks
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers' // auto import elementUI
+import Pages from 'vite-plugin-pages' // auto generate routes by dirs
+import { createStyleImportPlugin, ElementPlusResolve, } from 'vite-plugin-style-import' // import styles
+import Markdown from 'vite-plugin-md' // use markdown components
 export default defineConfig({
   plugins: [
-    
+    Pages({
+      dirs: 'src/components',
+      extensions: ['vue', 'ts', 'js', 'md'],
+        extendRoute(route, parent) {
+          if (route.path === '/') {
+            // Index is unauthenticated.
+            route.redirect = '/script-render'
+            return route
+          }
+  
+          // Augment the route with meta that indicates that the route requires authentication.
+          return {
+            ...route,
+          }
+        },
+    }),
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', 'vue-router'],
       dts: "./auto-import.d.ts",
       include: [
         /.[tj]sx?$/, // .ts, .tsx, .js, .jsx
@@ -43,7 +56,7 @@ export default defineConfig({
 
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      extensions: ['vue', 'ts', 'js','md'],
+      extensions: ['vue', 'ts', 'js', 'md'],
       // 配置文件生成位置
       dts: 'src/components.d.ts',
       // ui库解析器，也可以自定义
@@ -56,9 +69,9 @@ export default defineConfig({
     // }),
     Markdown(),
     createStyleImportPlugin({
-      resolves:[
+      resolves: [
         ElementPlusResolve(),
-        ],
+      ],
       // libs: [
       //   // 如果没有你需要的resolve，可以在lib内直接写，也可以给我们提供PR
       //   {
